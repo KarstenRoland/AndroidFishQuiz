@@ -15,8 +15,8 @@ import androidx.room.ColumnInfo
  */
 @Entity(tableName = "fish", foreignKeys = [ForeignKey(
     entity = Habitat::class,
-    parentColumns = arrayOf("habitatID"),
-    childColumns = arrayOf("habID"),
+    parentColumns = arrayOf("hab_id"),
+    childColumns = arrayOf("habitat_id"),
     onDelete = ForeignKey.CASCADE
 )])
 data class Fish(
@@ -68,8 +68,8 @@ data class Habitat(
  */
 @Entity(tableName = "fish_fact", foreignKeys = [ForeignKey(
     entity = Fish::class,
-    parentColumns = arrayOf("idFish"),
-    childColumns = arrayOf("fishID"),
+    parentColumns = arrayOf("fish_id"),
+    childColumns = arrayOf("id_fish"),
     onDelete = ForeignKey.CASCADE
 )])
 data class FishFact(
