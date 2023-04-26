@@ -17,6 +17,9 @@ import com.cs364.fishquiz.databinding.FragmentMainBinding
  */
 class PlaceholderFragment : Fragment() {
 
+    /**
+     * used to declare binding with fragment xml
+     */
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentMainBinding? = null
 
@@ -31,6 +34,9 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
+    /**
+     * Adds images to the background and cycles between them depending on which tab is currently active
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,6 +80,10 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
+
+    /**
+     * Destroys view once done using
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
