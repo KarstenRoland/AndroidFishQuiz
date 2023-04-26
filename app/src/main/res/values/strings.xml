@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Fish Quiz</string>
-    <string name="tab_text_1">Pacific</string>
-    <string name="tab_text_2">Great Lakes</string>
-    <string name="tab_text_3">Atlantic</string>
+    <string name="tab_text_1">Brackish</string>
+    <string name="tab_text_2">Fresh</string>
+    <string name="tab_text_3">Salty</string>
+    <string name="tab_text_4">QUIZ</string>
 </resources>

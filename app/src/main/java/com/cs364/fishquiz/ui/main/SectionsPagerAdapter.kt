@@ -9,7 +9,9 @@ import com.cs364.fishquiz.R
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
     R.string.tab_text_2,
-    R.string.tab_text_3
+    R.string.tab_text_3,
+    R.string.tab_text_4
+
 
 )
 
@@ -31,7 +33,7 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     }
 
     override fun getCount(): Int {
-        // Show 3 total pages.
-        return 3
+        // Show 4 total pages.
+        return 4
     }
 }
