@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,6 +17,9 @@ import com.cs364.fishquiz.databinding.FragmentMainBinding
  */
 class PlaceholderFragment : Fragment() {
 
+    /**
+     * used to declare binding with fragment xml
+     */
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentMainBinding? = null
 
@@ -30,6 +34,9 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
+    /**
+     * Adds images to the background and cycles between them depending on which tab is currently active
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,9 +46,16 @@ class PlaceholderFragment : Fragment() {
         val root = binding.root
 
         val textView: TextView = binding.sectionLabel
+        val imageView: ImageView = binding.backgroundImage
         pageViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        when(arguments?.getInt(ARG_SECTION_NUMBER)) {
+            1 -> imageView.setImageResource(R.drawable.image1)
+            2 -> imageView.setImageResource(R.drawable.image2)
+            3 -> imageView.setImageResource(R.drawable.image3)
+            else -> imageView.setImageResource(R.drawable.default_image)
+        }
         return root
     }
 
@@ -66,6 +80,10 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
+
+    /**
+     * Destroys view once done using
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
