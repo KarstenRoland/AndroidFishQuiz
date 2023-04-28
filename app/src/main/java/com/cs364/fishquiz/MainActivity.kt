@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             //var viewModelDB by remember { mutableStateOf(FishDBViewModel(repo)) }
             //val result by viewModelDB.getAllFish().collectAsState(initial = emptyList())
             viewModelDB = viewModel(factory = ViewModelFactory.Factory)
-
+            var res = viewModelDB.fishUiState.value.fishList[1].common_name
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,7 +43,5 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
         tabs.setupWithViewPager(viewPager)
-
-        val result = viewModelDB.fishUiState.value.fishList
     }
 }
