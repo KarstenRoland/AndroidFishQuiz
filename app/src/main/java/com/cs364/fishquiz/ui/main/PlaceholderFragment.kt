@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
+import com.cs364.fishquiz.ui.ViewModelFactory
 
 /**
  * A placeholder fragment containing a simple view.
