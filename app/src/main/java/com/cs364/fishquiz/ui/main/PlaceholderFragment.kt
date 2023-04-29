@@ -7,19 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
 
@@ -63,30 +61,55 @@ class PlaceholderFragment : Fragment() {
                 1 -> {
                     Column(modifier = Modifier.fillMaxSize()) {
                         Image(
+                            painter = painterResource(id = R.drawable.image1),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .height(160.dp),
+                            contentScale = ContentScale.FillWidth
+                        )
+                    }
+                }
+                2 -> {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.image2),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .height(160.dp),
+                            contentScale = ContentScale.FillWidth
+                        )
+                    }
+                }
+                3 -> {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.image3),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .height(160.dp),
+                            contentScale = ContentScale.FillWidth
+                        )
+                    }
+                }
+                else -> {
+                    Quiz
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        Image(
                             painter = painterResource(id = R.drawable.default_image),
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .fillMaxHeight()
                                 .height(160.dp),
                             contentScale = ContentScale.FillWidth
                         )
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                        ) {
-                            fishInfoText.text = "Fish Info for Tab 1"
-                            Text("hello world")
-                        }
                     }
-                }
-                2 -> {
-                    fishInfoText.text = "Fish Info for Tab 2"
-                    fishInfoText.setTextColor(resources.getColor(R.color.black))
-                }
-                3 -> {
-                    fishInfoText.text = "Fish Info for Tab 3"
-                }
-                else -> {
-                    fishInfoText.text = ""
                 }
             }
         }
