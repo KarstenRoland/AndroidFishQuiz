@@ -1,13 +1,12 @@
 package com.cs364.fishquiz.ui
 
-import com.cs364.fishquiz.ui.main.FishDBViewModel
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.cs364.fishquiz.FishApplication
+import com.cs364.fishquiz.ui.main.FishDBViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
