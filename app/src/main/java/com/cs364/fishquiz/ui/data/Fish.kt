@@ -17,7 +17,7 @@ import androidx.room.ColumnInfo
     entity = Habitat::class,
     parentColumns = arrayOf("habitat_id"),
     childColumns = arrayOf("hab_id"),
-    onDelete = ForeignKey.CASCADE
+    onDelete = ForeignKey.NO_ACTION
 )])
 data class Fish(
     @PrimaryKey
@@ -72,7 +72,7 @@ data class Habitat(
     entity = Fish::class,
     parentColumns = arrayOf("fish_id"),
     childColumns = arrayOf("id_fish"),
-    onDelete = ForeignKey.CASCADE
+    onDelete = ForeignKey.NO_ACTION
 )])
 data class FishFact(
     @PrimaryKey
