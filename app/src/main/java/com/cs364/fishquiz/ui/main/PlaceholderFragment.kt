@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
+import org.w3c.dom.Text
+
 
 class PlaceholderFragment : Fragment() {
 
