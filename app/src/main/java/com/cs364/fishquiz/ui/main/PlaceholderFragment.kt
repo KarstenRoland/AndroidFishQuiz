@@ -10,11 +10,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -26,7 +27,6 @@ class PlaceholderFragment : Fragment() {
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +45,9 @@ class PlaceholderFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val root = binding.root
 
+        var myContext = LocalContext.current
+        var vmData: FishDBViewModel by remember { mutableStateOf(FishDBViewModel(myContext)) }
+
         val imageView: ImageView = binding.backgroundImage
 
         // Set the background image to be used for all tabs
@@ -58,19 +61,7 @@ class PlaceholderFragment : Fragment() {
 
             // Set the text to display on the textView based on the tab number
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
-                1 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Image(
-                            painter = painterResource(id = R.drawable.image1),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
-                }
+                1 -> { CatalogScreen(vmData) }
                 2 -> {
                     Column(modifier = Modifier.fillMaxSize()) {
                         Image(
