@@ -43,12 +43,13 @@ class PlaceholderFragment : Fragment() {
             }
             2 -> {
                 fishInfoText.text = "Fish Info for Tab 2"
+                fishInfoText.setTextColor(resources.getColor(R.color.black))
             }
             3 -> {
                 fishInfoText.text = "Fish Info for Tab 3"
             }
             else -> {
-                fishInfoText.text = "Default Fish Info"
+                fishInfoText.text = ""
             }
         }
 
