@@ -55,8 +55,11 @@ class PlaceholderFragment : Fragment() {
         })
         when(arguments?.getInt(ARG_SECTION_NUMBER)) {
             1 -> imageView.setImageResource(R.drawable.image1)
+
             2 -> imageView.setImageResource(R.drawable.image2)
+
             3 -> imageView.setImageResource(R.drawable.image3)
+
             else -> imageView.setImageResource(R.drawable.default_image)
         }
         return root
