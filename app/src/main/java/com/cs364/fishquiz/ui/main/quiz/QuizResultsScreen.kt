@@ -1,4 +1,4 @@
-package com.cs364.fishquiz.ui.quiz
+package com.cs364.fishquiz.ui.main.quiz
 
 class QuizResultsScreen {
 }

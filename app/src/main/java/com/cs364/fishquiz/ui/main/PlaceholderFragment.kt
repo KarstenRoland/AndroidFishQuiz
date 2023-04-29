@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
+import com.cs364.fishquiz.ui.main.quiz.QuizQuestionScreen
 
 class PlaceholderFragment : Fragment() {
 
@@ -97,18 +98,8 @@ class PlaceholderFragment : Fragment() {
                         )
                     }
                 }
-                else -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Image(
-                            painter = painterResource(id = R.drawable.default_image),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                4 -> {
+                    QuizQuestionScreen()
                 }
             }
         }
