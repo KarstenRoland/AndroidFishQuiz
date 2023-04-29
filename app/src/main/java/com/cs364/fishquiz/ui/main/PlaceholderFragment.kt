@@ -53,6 +53,21 @@ class PlaceholderFragment : Fragment() {
         pageViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
+        // Set the text to display on the textView based on the tab number
+        when(arguments?.getInt(ARG_SECTION_NUMBER)) {
+            1 -> textView.text = "Text for Tab 1"
+
+            2 -> textView.text = "Text for Tab 2"
+
+            3 -> textView.text = "Text for Tab 3"
+
+            else -> textView.text = "Default Text"
+        }
+        
+
+
+        // Set the background image based on the tab number
         when(arguments?.getInt(ARG_SECTION_NUMBER)) {
             1 -> imageView.setImageResource(R.drawable.image1)
 
@@ -64,6 +79,7 @@ class PlaceholderFragment : Fragment() {
         }
         return root
     }
+
 
     companion object {
         /**
