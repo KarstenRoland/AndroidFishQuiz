@@ -6,18 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
-import org.w3c.dom.Text
-
 
 class PlaceholderFragment : Fragment() {
 
@@ -25,20 +29,22 @@ class PlaceholderFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                // call your Composable function here
+                onCreateViewWithLayoutInflator()
+            }
         }
     }
 
     @Composable
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+    fun onCreateViewWithLayoutInflator() {
+        _binding = FragmentMainBinding.inflate(layoutInflater)
         val root = binding.root
 
         val imageView: ImageView = binding.backgroundImage
@@ -48,14 +54,29 @@ class PlaceholderFragment : Fragment() {
 
         // Check if this is the default tab (section number is null)
         if (arguments?.getInt(ARG_SECTION_NUMBER) == null) {
-            root.addView(createComposeView())
+            createComposeView(root)
         } else {
             val fishInfoText: TextView = binding.fishInfoText
 
             // Set the text to display on the textView based on the tab number
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
                 1 -> {
-                    fishInfoText.text = "Fish Info for Tab 1"
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        Image(
+                            painter = painterResource(id = R.drawable.default_image),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(160.dp),
+                            contentScale = ContentScale.FillWidth
+                        )
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                        ) {
+                            fishInfoText.text = "Fish Info for Tab 1"
+                            Text("hello world")
+                        }
+                    }
                 }
                 2 -> {
                     fishInfoText.text = "Fish Info for Tab 2"
@@ -69,33 +90,32 @@ class PlaceholderFragment : Fragment() {
                 }
             }
         }
-
-        return root
     }
 
     @Composable
-    private fun createComposeView() {
-        Column(
+    fun createComposeView(root: View){
+        Box(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            contentAlignment = Alignment.Center
         ) {
-            Text(text = "Hello World!", style = MaterialTheme.typography.h1)
+            ComposeView(root.context).apply {
+                setContent {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "Hello World!", style = MaterialTheme.typography.h1)
+                    }
+                }
+            }
         }
     }
 
+
     companion object {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
         private const val ARG_SECTION_NUMBER = "section_number"
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        @JvmStatic
         fun newInstance(sectionNumber: Int): PlaceholderFragment {
             return PlaceholderFragment().apply {
                 arguments = Bundle().apply {
