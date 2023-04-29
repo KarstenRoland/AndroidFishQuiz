@@ -34,7 +34,5 @@
 
     </ScrollView>
 
-    This will center the text both horizontally and vertically within the ScrollView.
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
