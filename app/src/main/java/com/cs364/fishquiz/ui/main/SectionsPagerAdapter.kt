@@ -12,8 +12,6 @@ private val TAB_TITLES = arrayOf(
     R.string.tab_text_2,
     R.string.tab_text_3,
     R.string.tab_text_4
-
-
 )
 
 /**
