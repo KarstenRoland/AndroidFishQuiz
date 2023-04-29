@@ -8,11 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -62,6 +65,9 @@ class PlaceholderFragment : Fragment() {
     fun onCreateViewWithLayoutInflator() {
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val root = binding.root
+
+        var myContext = LocalContext.current
+        var vmData: FishDBViewModel by remember { mutableStateOf(FishDBViewModel(myContext)) }
 
         val imageView: ImageView = binding.backgroundImage
 

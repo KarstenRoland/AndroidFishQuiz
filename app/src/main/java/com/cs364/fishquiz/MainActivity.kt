@@ -1,13 +1,11 @@
 package com.cs364.fishquiz
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
-import com.cs364.fishquiz.databinding.ActivityMainBinding
-import com.cs364.fishquiz.ui.main.FishDBViewModel
-import com.cs364.fishquiz.ui.main.SectionsPagerAdapter
 import com.google.android.material.tabs.TabLayout
-
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
+import com.cs364.fishquiz.ui.main.SectionsPagerAdapter
+import com.cs364.fishquiz.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
