@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Fish::class, FishFact::class, Habitat::class], version = 2, exportSchema = false)
+@Database(entities = [Fish::class, FishFact::class, Habitat::class], version = 4, exportSchema = false)
 abstract class FishDatabase : RoomDatabase() {
     abstract fun fishDao() : FishDao
     companion object{
@@ -19,22 +19,7 @@ abstract class FishDatabase : RoomDatabase() {
                     .createFromAsset("fish.db")
                     .build()
                     .also { instance = it }
-
             }
-            /*
-            //check if null and build it if it is null.
-            if (instance == null) {
-                instance = Room.databaseBuilder(
-                    context,
-                    FishDatabase::class.java,
-                    "fishy"
-                )
-                    .createFromAsset("assets/fish.db").build()    //load the database
-            }
-
-            //return the instance as cast to FishDatabase
-            return instance as FishDatabase
-            */
         }
     }
 }

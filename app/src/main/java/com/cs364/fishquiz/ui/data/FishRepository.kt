@@ -16,7 +16,7 @@ class FishRepository(private val fishDao: FishDao) : FishInterface {
     override fun getAllFishInHabitat(habitat: Int): Flow<String> = fishDao.getAllFishInHabitat(habitat)
 
 
-    /*companion object {
+    companion object {
         private var repository: FishInterface? = null
         fun getRepo(fishDb: FishDatabase):
                 FishInterface {
@@ -27,6 +27,4 @@ class FishRepository(private val fishDao: FishDao) : FishInterface {
             return repository!!
         }
     }
-
-     */
 }
