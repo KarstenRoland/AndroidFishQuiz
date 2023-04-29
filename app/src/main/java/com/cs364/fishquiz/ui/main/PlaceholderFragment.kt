@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -29,6 +32,7 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
+    @Composable
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +50,7 @@ class PlaceholderFragment : Fragment() {
         if (arguments?.getInt(ARG_SECTION_NUMBER) == null) {
             root.addView(createComposeView())
         } else {
-            val fishInfoText: Text = binding.fishInfoText
+            val fishInfoText: TextView = binding.fishInfoText
 
             // Set the text to display on the textView based on the tab number
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
