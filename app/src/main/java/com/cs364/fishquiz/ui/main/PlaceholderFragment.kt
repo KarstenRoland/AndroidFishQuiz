@@ -6,28 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
-import com.cs364.fishquiz.ui.ViewModelFactory
 
-/**
- * A placeholder fragment containing a simple view.
- */
 class PlaceholderFragment : Fragment() {
 
-    /**
-     * used to declare binding with fragment xml
-     */
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentMainBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +25,6 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
-    /**
-     * Adds images to the background and cycles between them depending on which tab is currently active
-     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,24 +33,24 @@ class PlaceholderFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val root = binding.root
 
-        val textView: TextView = binding.sectionLabel
         val imageView: ImageView = binding.backgroundImage
-        pageViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        val fishInfoText: TextView = binding.fishInfoText
 
         // Set the text to display on the textView based on the tab number
         when(arguments?.getInt(ARG_SECTION_NUMBER)) {
-            1 -> textView.text = "Text for Tab 1"
-
-            2 -> textView.text = "Text for Tab 2"
-
-            3 -> textView.text = "Text for Tab 3"
-
-            else -> textView.text = "Default Text"
+            1 -> {
+                fishInfoText.text = "Fish Info for Tab 1"
+            }
+            2 -> {
+                fishInfoText.text = "Fish Info for Tab 2"
+            }
+            3 -> {
+                fishInfoText.text = "Fish Info for Tab 3"
+            }
+            else -> {
+                fishInfoText.text = "Default Fish Info"
+            }
         }
-        
-
 
         // Set the background image based on the tab number
         when(arguments?.getInt(ARG_SECTION_NUMBER)) {
