@@ -98,7 +98,6 @@ class PlaceholderFragment : Fragment() {
                     }
                 }
                 else -> {
-                    Quiz
                     Column(modifier = Modifier.fillMaxSize()) {
                         Image(
                             painter = painterResource(id = R.drawable.default_image),
