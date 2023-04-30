@@ -13,6 +13,6 @@ interface FishInterface {
 
     fun getFishFromName(name: String): Flow<Fish>
 
-    fun getAllFishInHabitat(habitat: Int): Flow<String>
+    fun getAllFishInHabitat(habitat: Int): Flow<List<Fish>>
 
 }

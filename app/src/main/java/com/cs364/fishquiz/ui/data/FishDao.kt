@@ -23,7 +23,6 @@ interface FishDao {
     @Query("SELECT * FROM fish WHERE fish_id = :id")
     fun getFishFromId(id: Int): Flow<Fish>
 
-    @Query("SELECT common_name FROM fish WHERE hab_id = :habitat")
-    fun getAllFishInHabitat(habitat: Int): Flow<String>
-
+    @Query("SELECT * FROM fish WHERE hab_id = :habitat")
+    fun getAllFishInHabitat(habitat: Int): Flow<List<Fish>>
 }

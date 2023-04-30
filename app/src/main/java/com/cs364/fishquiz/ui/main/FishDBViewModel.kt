@@ -18,6 +18,7 @@ class FishDBViewModel(context: Context): ViewModel() {
     fun getAllFish(): Flow<List<Fish>> {
        return fishRepository.getAllFish()
     }
+
     fun getFishFromId(id: Int): Flow<Fish> {
         return fishRepository.getFishFromId(id)
     }
