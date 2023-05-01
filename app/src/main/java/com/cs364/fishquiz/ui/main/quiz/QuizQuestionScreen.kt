@@ -24,7 +24,6 @@ fun QuizQuestionScreen(
 ) {
     //var selectedAnswer by rememberSaveable { mutableStateOf(Boolean) }
     val quizUiState by quizViewModel.uiState.collectAsState()
-    var isQuestionTrue: Boolean = true
 
     Column(modifier = modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Row(modifier = Modifier.fillMaxWidth().padding((16.dp)), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -38,11 +37,17 @@ fun QuizQuestionScreen(
         Button(onClick = {
             quizViewModel.pickNewRandomQuestion()
             quizViewModel.incrementQuestionCount()
+            if(quizUiState.isCurrentQuestionTrue) {
+                quizViewModel.incrementScore()
+            }
             onAnswerClicked(true)
         }){ Text("True") }
         Button(onClick = {
             quizViewModel.pickNewRandomQuestion()
             quizViewModel.incrementQuestionCount()
+            if(!quizUiState.isCurrentQuestionTrue) {
+                quizViewModel.incrementScore()
+            }
             onAnswerClicked(false)
         }){ Text("False") }
     }
