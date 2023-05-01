@@ -1,6 +1,6 @@
 package com.cs364.fishquiz
 
-import android.app.Application
+import android.content.Context
 import android.content.res.Resources
 import androidx.fragment.app.FragmentManager
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -14,9 +14,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import android.content.Context
-
-
 
 
 @RunWith(AndroidJUnit4::class)
