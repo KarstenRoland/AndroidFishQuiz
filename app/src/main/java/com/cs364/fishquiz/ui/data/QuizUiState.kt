@@ -13,7 +13,7 @@ data class QuizUiState(
     val currentQuestionType: QuestionType? = null,
     val currentQuestion: String = "",
     val isCurrentQuestionTrue: Boolean = true,
-    val currentQuestionCount: Int = 1,
+    val totalQuestionsAnswered: Int = 1,
     val score: Int = 0,
     val isQuizOver: Boolean = false
 )

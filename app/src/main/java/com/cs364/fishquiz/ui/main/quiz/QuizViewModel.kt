@@ -68,7 +68,7 @@ class QuizViewModel(): ViewModel() {
     fun incrementQuestionCount() {
         _uiState.update {currentState ->
             currentState.copy(
-                currentQuestionCount = currentState.currentQuestionCount + 1
+                totalQuestionsAnswered = currentState.totalQuestionsAnswered + 1
             )
         }
     }
@@ -93,7 +93,7 @@ class QuizViewModel(): ViewModel() {
      * @param totalQuestions
      */
     private fun checkQuizOverAndSet(totalQuestions: Int) {
-        if(_uiState.value.currentQuestionCount >= totalQuestions) {
+        if(_uiState.value.totalQuestionsAnswered >= totalQuestions) {
             setQuizOver(true)
         }
         else setQuizOver(false)
