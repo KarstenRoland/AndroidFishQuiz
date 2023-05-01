@@ -2,14 +2,15 @@ package com.cs364.fishquiz.ui.main.quiz
 
 import androidx.lifecycle.ViewModel
 import com.cs364.fishquiz.ui.data.Fish
+import com.cs364.fishquiz.ui.data.QuizQuestions
 import com.cs364.fishquiz.ui.data.QuizUiState
 import com.cs364.fishquiz.ui.main.FishDBViewModel
 import kotlinx.coroutines.flow.*
+import kotlin.random.Random
 
 class QuizViewModel(): ViewModel() {
     private val _uiState = MutableStateFlow(QuizUiState(currentFishId = 0, currentFishHabitatId = 0))
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
-    // private var askedQuestionAttributes: Pair<Int, String>
 
     /**
      * Resets all UI state values to defaults.
@@ -50,7 +51,7 @@ class QuizViewModel(): ViewModel() {
     /**
      * Increases the score by 1.
      */
-    private fun incrementScore() {
+    fun incrementScore() {
         _uiState.update {currentState ->
             currentState.copy(
                 score = currentState.score + 1
@@ -61,7 +62,7 @@ class QuizViewModel(): ViewModel() {
     /**
      * Increments the question count by 1.
      */
-    private fun incrementQuestionCount() {
+    fun incrementQuestionCount() {
         _uiState.update {currentState ->
             currentState.copy(
                 currentQuestionCount = currentState.currentQuestionCount + 1
@@ -70,12 +71,13 @@ class QuizViewModel(): ViewModel() {
     }
 
     /**
-     * Changes the current question text.
+     * Changes the current question text via random number generation.
      */
-    private fun setQuestion(question: String) {
+    fun pickNewRandomQuestion() {
         _uiState.update {currentState ->
             currentState.copy(
-                currentQuestion = question
+                currentQuestionIndex = Random.nextInt(0, QuizQuestions.questions.size - 1),
+                currentQuestion = QuizQuestions.questions[currentState.currentQuestionIndex].second
             )
         }
     }
