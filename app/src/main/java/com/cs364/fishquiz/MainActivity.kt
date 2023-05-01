@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import com.cs364.fishquiz.ui.main.SectionsPagerAdapter
 import com.cs364.fishquiz.databinding.ActivityMainBinding
+import com.cs364.fishquiz.ui.main.FishDBViewModel
 
 class MainActivity : AppCompatActivity() {
 
