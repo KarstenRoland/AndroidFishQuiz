@@ -1,11 +1,10 @@
 package com.cs364.fishquiz.ui.main.quiz
 
 import androidx.lifecycle.ViewModel
+import com.cs364.fishquiz.ui.data.Fish
 import com.cs364.fishquiz.ui.data.QuizUiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.cs364.fishquiz.ui.main.FishDBViewModel
+import kotlinx.coroutines.flow.*
 
 class QuizViewModel(): ViewModel() {
     private val _uiState = MutableStateFlow(QuizUiState(currentFishId = 0, currentFishHabitatId = 0))
@@ -13,24 +12,37 @@ class QuizViewModel(): ViewModel() {
     // private var askedQuestionAttributes: Pair<Int, String>
 
     /**
-     * Sets quiz values back to their defaults.
+     * Resets all UI state values to defaults.
      */
     fun resetQuiz() {
-        _uiState.value = QuizUiState(currentFishId = 0, currentFishHabitatId = 0)
+        _uiState.value = QuizUiState(
+            currentFishId = 0,
+            currentFishHabitatId = 0
+        )
     }
 
     /**
-     * Updates both IDs for the UI state.
-     * Should be used when a fish changes.
+     * Updates the UI state with fish details
+     * depending on the new ID given to it.
      *
      * @param currentFishId
-     * @param currentFishHabitatId
      */
-    fun updateIds(currentFishId: Int, currentFishHabitatId: Int) {
+    // TODO
+    fun updateNewFish(
+        fishDbData: FishDBViewModel,
+        currentFishId: Int
+    ) {
+        val currentFishFlow = fishDbData.getFishFromId(currentFishId)
+        // val currentFish = currentFishFlow.collect
         _uiState.update {currentState ->
             currentState.copy(
                 currentFishId = currentFishId,
-                currentFishHabitatId = currentFishHabitatId
+                // currentFishName = currentFish.common_name,
+                // currentFishGenus = "",
+                // currentFishSpecies = "",
+                // currentFishWeight = 0,
+                // currentFishLength = 0,
+                // currentFishDepth = 0
             )
         }
     }
