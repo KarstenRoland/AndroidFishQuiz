@@ -2,6 +2,7 @@ package com.cs364.fishquiz.ui.main.quiz
 
 import androidx.lifecycle.ViewModel
 import com.cs364.fishquiz.ui.data.Fish
+import com.cs364.fishquiz.ui.data.QuestionType
 import com.cs364.fishquiz.ui.data.QuizQuestions
 import com.cs364.fishquiz.ui.data.QuizUiState
 import com.cs364.fishquiz.ui.main.FishDBViewModel
@@ -9,21 +10,11 @@ import kotlinx.coroutines.flow.*
 import kotlin.random.Random
 
 class QuizViewModel(fishList: List<Fish>): ViewModel() {
-    private val _uiState = MutableStateFlow(QuizUiState(currentFishId = 0, currentFishHabitatId = 0))
+    private val _uiState = MutableStateFlow(QuizUiState(currentFishId = 0, currentFishHabitatId = 0, fishList = fishList))
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
 
     init {
         pickNewRandomQuestion()
-    }
-
-    /**
-     * Resets all UI state values to defaults.
-     */
-    fun resetQuiz() {
-        _uiState.value = QuizUiState(
-            currentFishId = 0,
-            currentFishHabitatId = 0
-        )
     }
 
     /**
@@ -78,17 +69,55 @@ class QuizViewModel(fishList: List<Fish>): ViewModel() {
      * Changes the current question text via random number generation.
      */
     fun pickNewRandomQuestion() {
-        // val randomIndex = Random.nextInt(0, fish)
+        val newFishId = Random.nextInt(0, uiState.value.fishList.size - 1)
+        var formattedQuestion: String = ""
         _uiState.update {currentState ->
             currentState.copy(
-                //
                 // Set question variables
                 currentQuestionIndex = Random.nextInt(0, QuizQuestions.questions.size - 1),
                 currentQuestionType = QuizQuestions.questions[currentState.currentQuestionIndex].first,
-                currentQuestion = QuizQuestions.questions[currentState.currentQuestionIndex].second
-
-                // Set fish variables
-                //currentFishId
+                currentQuestion = QuizQuestions.questions[currentState.currentQuestionIndex].second,
+            )
+        }
+        if(uiState.value.currentQuestionType == QuestionType.SCIENTIFIC_NAME) {
+            formattedQuestion = String.format(
+                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                uiState.value.fishList[uiState.value.currentFishId].common_name,
+                uiState.value.fishList[uiState.value.currentFishId].genus,
+                uiState.value.fishList[uiState.value.currentFishId].species
+                )
+        }
+        else if(uiState.value.currentQuestionType == QuestionType.GENUS) {
+            formattedQuestion = String.format(
+                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                uiState.value.fishList[uiState.value.currentFishId].common_name,
+                uiState.value.fishList[uiState.value.currentFishId].genus
+            )
+        }
+        else if(uiState.value.currentQuestionType == QuestionType.WEIGHT) {
+            formattedQuestion = String.format(
+                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                uiState.value.fishList[uiState.value.currentFishId].common_name,
+                uiState.value.fishList[uiState.value.currentFishId].avg_weight_kg
+            )
+        }
+        else if(uiState.value.currentQuestionType == QuestionType.LENGTH) {
+            formattedQuestion = String.format(
+                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                uiState.value.fishList[uiState.value.currentFishId].common_name,
+                uiState.value.fishList[uiState.value.currentFishId].avg_len_met
+            )
+        }
+        else if(uiState.value.currentQuestionType == QuestionType.DEPTH) {
+            formattedQuestion = String.format(
+                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                uiState.value.fishList[uiState.value.currentFishId].common_name,
+                uiState.value.fishList[uiState.value.currentFishId].water_depth_met
+            )
+        }
+        _uiState.update {currentState ->
+            currentState.copy(
+                currentQuestion = formattedQuestion
             )
         }
     }

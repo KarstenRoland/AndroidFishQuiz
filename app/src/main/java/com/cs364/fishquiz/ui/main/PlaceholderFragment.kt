@@ -1,6 +1,7 @@
 package com.cs364.fishquiz.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
+import com.cs364.fishquiz.ui.data.Fish
 import com.cs364.fishquiz.ui.main.quiz.QuizQuestionScreen
 import com.cs364.fishquiz.ui.main.quiz.QuizViewModel
 
@@ -68,7 +70,9 @@ class PlaceholderFragment : Fragment() {
 
         var myContext = LocalContext.current
         var vmData: FishDBViewModel by remember { mutableStateOf(FishDBViewModel(myContext)) }
-        val fishList by vmData.getAllFish().collectAsState(initial = listOf())  // Contains all fish
+        val fishList: List<Fish> by vmData.getAllFish().collectAsState(initial = listOf(Fish(1, "cool fish name", "operandus", "operan", 10, 10, 10, "What a cool fish indeed!", 1)))  // Contains all fish
+
+        // Log.d("fishlist", fishList[0].common_name)
 
         val imageView: ImageView = binding.backgroundImage
 

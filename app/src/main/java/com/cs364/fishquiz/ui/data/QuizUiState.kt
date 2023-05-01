@@ -1,6 +1,7 @@
 package com.cs364.fishquiz.ui.data
 
 data class QuizUiState(
+    val fishList: List<Fish>,
     val currentFishId: Int,
     val currentFishHabitatId: Int,
     val currentQuestionIndex: Int = 0,
