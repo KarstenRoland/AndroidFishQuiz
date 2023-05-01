@@ -13,7 +13,7 @@ class FishRepository(private val fishDao: FishDao) : FishInterface {
 
     override fun getFishFromName(name: String): Flow<Fish> = fishDao.getFishFromName(name)
 
-    override fun getAllFishInHabitat(habitat: Int): Flow<List<Fish>> = fishDao.getAllFishInHabitat(habitat)
+    override fun getAllFishInHabitat(habitat: String): Flow<List<Fish>> = fishDao.getAllFishInHabitat(habitat)
 
 
     companion object {

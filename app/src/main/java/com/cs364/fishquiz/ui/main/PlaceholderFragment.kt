@@ -84,35 +84,13 @@ class PlaceholderFragment : Fragment() {
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
                 1 -> {
                     // ComposeView that displays image 1
-                    CatalogScreen(vmData = vmData)
+                    CatalogScreen(vmData = vmData, "Brackish", R.drawable.image1)
                 }
                 2 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays image 2
-                        Image(
-                            painter = painterResource(id = R.drawable.image2),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, "Fresh", R.drawable.image2)
                 }
                 3 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays image 3
-                        Image(
-                            painter = painterResource(id = R.drawable.image3),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, "Salty", R.drawable.image3)
                 }
                 else -> {
                     Column(modifier = Modifier.fillMaxSize()) {
