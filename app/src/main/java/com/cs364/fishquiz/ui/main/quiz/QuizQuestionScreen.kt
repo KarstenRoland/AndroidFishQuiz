@@ -11,18 +11,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.cs364.fishquiz.ui.main.FishDBViewModel
 
 @Composable
 fun QuizQuestionScreen(
     onAnswerClicked: (Boolean) -> Unit = {},
-    quizViewModel: QuizViewModel = viewModel(),
+    quizViewModel: QuizViewModel,
     modifier: Modifier = Modifier
 ) {
     //var selectedAnswer by rememberSaveable { mutableStateOf(Boolean) }
     val quizUiState by quizViewModel.uiState.collectAsState()
+    // quizViewModel = QuizViewModel(fishList) // move to placeholderfragment
 
     Column(modifier = modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Row(modifier = Modifier.fillMaxWidth().padding((16.dp)), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding((16.dp)), horizontalArrangement = Arrangement.SpaceBetween) {
             Text("Question ${quizUiState.totalQuestionsAnswered}", fontSize = 16.sp)
             Text("Current score: ${quizUiState.score}", fontSize = 16.sp)
         }

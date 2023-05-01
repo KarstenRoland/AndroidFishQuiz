@@ -1,13 +1,14 @@
 package com.cs364.fishquiz.ui.main.quiz
 
 import androidx.lifecycle.ViewModel
+import com.cs364.fishquiz.ui.data.Fish
 import com.cs364.fishquiz.ui.data.QuizQuestions
 import com.cs364.fishquiz.ui.data.QuizUiState
 import com.cs364.fishquiz.ui.main.FishDBViewModel
 import kotlinx.coroutines.flow.*
 import kotlin.random.Random
 
-class QuizViewModel(): ViewModel() {
+class QuizViewModel(fishList: List<Fish>): ViewModel() {
     private val _uiState = MutableStateFlow(QuizUiState(currentFishId = 0, currentFishHabitatId = 0))
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
 
@@ -77,11 +78,17 @@ class QuizViewModel(): ViewModel() {
      * Changes the current question text via random number generation.
      */
     fun pickNewRandomQuestion() {
+        // val randomIndex = Random.nextInt(0, fish)
         _uiState.update {currentState ->
             currentState.copy(
+                //
+                // Set question variables
                 currentQuestionIndex = Random.nextInt(0, QuizQuestions.questions.size - 1),
                 currentQuestionType = QuizQuestions.questions[currentState.currentQuestionIndex].first,
                 currentQuestion = QuizQuestions.questions[currentState.currentQuestionIndex].second
+
+                // Set fish variables
+                //currentFishId
             )
         }
     }

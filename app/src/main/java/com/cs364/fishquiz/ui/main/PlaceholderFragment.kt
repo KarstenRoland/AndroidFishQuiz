@@ -8,8 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +20,7 @@ import androidx.fragment.app.Fragment
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
 import com.cs364.fishquiz.ui.main.quiz.QuizQuestionScreen
+import com.cs364.fishquiz.ui.main.quiz.QuizViewModel
 
 /**
  * PlaceholderFragment is a Fragment that displays different content based on the section number
@@ -69,6 +68,7 @@ class PlaceholderFragment : Fragment() {
 
         var myContext = LocalContext.current
         var vmData: FishDBViewModel by remember { mutableStateOf(FishDBViewModel(myContext)) }
+        val fishList by vmData.getAllFish().collectAsState(initial = listOf())  // Contains all fish
 
         val imageView: ImageView = binding.backgroundImage
 
@@ -126,7 +126,7 @@ class PlaceholderFragment : Fragment() {
                     }
                 }
                 4 -> {
-                    QuizQuestionScreen()
+                    QuizQuestionScreen(quizViewModel = QuizViewModel(fishList))
                 }
             }
         }
