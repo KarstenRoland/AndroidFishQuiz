@@ -1,6 +1,7 @@
 package com.cs364.fishquiz.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
+import com.cs364.fishquiz.ui.data.Fish
+import com.cs364.fishquiz.ui.main.quiz.QuizQuestionScreen
+import com.cs364.fishquiz.ui.main.quiz.QuizViewModel
 
 /**
  * PlaceholderFragment is a Fragment that displays different content based on the section number
@@ -70,6 +74,9 @@ class PlaceholderFragment : Fragment() {
         var myContext = LocalContext.current
         var vmData: FishDBViewModel by remember { mutableStateOf(FishDBViewModel(myContext)) }
 
+        val fishList: List<Fish> by vmData.getAllFish().collectAsState(initial = listOf())
+        //Log.d("i hate room",  vmData.getAllFish().collectAsState(initial = listOf()))
+        
         val imageView: ImageView = binding.backgroundImage
 
         // Set the background image to be used for all tabs
@@ -93,19 +100,8 @@ class PlaceholderFragment : Fragment() {
                 3 -> {
                     CatalogScreen(vmData = vmData, R.string.tab_text_3, R.drawable.image3)
                 }
-                else -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays default image
-                        Image(
-                            painter = painterResource(id = R.drawable.default_image),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                4 -> {
+                    QuizQuestionScreen(quizViewModel = QuizViewModel(fishList))
                 }
             }
         }
