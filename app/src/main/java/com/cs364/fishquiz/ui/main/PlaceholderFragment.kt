@@ -54,6 +54,7 @@ class PlaceholderFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         return ComposeView(requireContext()).apply {
             setContent {
                 // call your Composable function here
@@ -75,7 +76,7 @@ class PlaceholderFragment : Fragment() {
         var vmData: FishDBViewModel by remember { mutableStateOf(FishDBViewModel(myContext)) }
 
         val fishList: List<Fish> by vmData.getAllFish().collectAsState(initial = listOf())
-        //Log.d("i hate room",  vmData.getAllFish().collectAsState(initial = listOf()))
+        Log.d("fishList size", fishList.size.toString())
         
         val imageView: ImageView = binding.backgroundImage
 

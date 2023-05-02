@@ -1,5 +1,6 @@
 package com.cs364.fishquiz.ui.main.quiz
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.cs364.fishquiz.ui.data.Fish
 import com.cs364.fishquiz.ui.data.QuestionType
@@ -67,58 +68,67 @@ class QuizViewModel(fishList: List<Fish>): ViewModel() {
 
     /**
      * Changes the current question text via random number generation.
+     * Only functions if the list is not empty.
      */
     fun pickNewRandomQuestion() {
-        val newFishId = Random.nextInt(0, uiState.value.fishList.size - 1)
+        val newFishId: Int
         var formattedQuestion: String = ""
-        _uiState.update {currentState ->
-            currentState.copy(
-                // Set question variables
-                currentQuestionIndex = Random.nextInt(0, QuizQuestions.questions.size - 1),
-                currentQuestionType = QuizQuestions.questions[currentState.currentQuestionIndex].first,
-                currentQuestion = QuizQuestions.questions[currentState.currentQuestionIndex].second,
-            )
-        }
-        if(uiState.value.currentQuestionType == QuestionType.SCIENTIFIC_NAME) {
-            formattedQuestion = String.format(
-                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
-                uiState.value.fishList[uiState.value.currentFishId].common_name,
-                uiState.value.fishList[uiState.value.currentFishId].genus,
-                uiState.value.fishList[uiState.value.currentFishId].species
+        if(uiState.value.fishList.isNotEmpty()){
+            newFishId = Random.nextInt(0, uiState.value.fishList.size - 1)
+            Log.d("Selected a new ID", newFishId.toString())
+            val newQuestionIndex = Random.nextInt(0, QuizQuestions.questions.size - 1)
+            Log.d("Selected a new index", newQuestionIndex.toString())
+            Log.d("The question type", QuizQuestions.questions[newQuestionIndex].first.toString())
+            Log.d("The question text", QuizQuestions.questions[newQuestionIndex].second)
+            _uiState.update { currentState ->
+                currentState.copy(
+                    // Set question variables
+                    currentQuestionIndex = newQuestionIndex,
+                    currentQuestionType = QuizQuestions.questions[currentState.currentQuestionIndex].first,
+                    currentFishId = newFishId
                 )
-        }
-        else if(uiState.value.currentQuestionType == QuestionType.GENUS) {
-            formattedQuestion = String.format(
-                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
-                uiState.value.fishList[uiState.value.currentFishId].common_name,
-                uiState.value.fishList[uiState.value.currentFishId].genus
-            )
-        }
-        else if(uiState.value.currentQuestionType == QuestionType.WEIGHT) {
-            formattedQuestion = String.format(
-                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
-                uiState.value.fishList[uiState.value.currentFishId].common_name,
-                uiState.value.fishList[uiState.value.currentFishId].avg_weight_kg
-            )
-        }
-        else if(uiState.value.currentQuestionType == QuestionType.LENGTH) {
-            formattedQuestion = String.format(
-                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
-                uiState.value.fishList[uiState.value.currentFishId].common_name,
-                uiState.value.fishList[uiState.value.currentFishId].avg_len_met
-            )
-        }
-        else if(uiState.value.currentQuestionType == QuestionType.DEPTH) {
-            formattedQuestion = String.format(
-                QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
-                uiState.value.fishList[uiState.value.currentFishId].common_name,
-                uiState.value.fishList[uiState.value.currentFishId].water_depth_met
-            )
-        }
-        _uiState.update {currentState ->
-            currentState.copy(
-                currentQuestion = formattedQuestion
-            )
+            }
+            Log.d("Fish ID is now", uiState.value.currentFishId.toString())
+            Log.d("Q? type is now", QuizQuestions.questions[newQuestionIndex].first.toString())
+            Log.d("Q? template", QuizQuestions.questions[newQuestionIndex].second)
+            if (uiState.value.currentQuestionType == QuestionType.SCIENTIFIC_NAME) {
+                formattedQuestion = String.format(
+                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    uiState.value.fishList[uiState.value.currentFishId].common_name,
+                    uiState.value.fishList[uiState.value.currentFishId].genus,
+                    uiState.value.fishList[uiState.value.currentFishId].species
+                )
+            } else if (uiState.value.currentQuestionType == QuestionType.GENUS) {
+                formattedQuestion = String.format(
+                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    uiState.value.fishList[uiState.value.currentFishId].common_name,
+                    uiState.value.fishList[uiState.value.currentFishId].genus
+                )
+            } else if (uiState.value.currentQuestionType == QuestionType.WEIGHT) { // Problematic
+                formattedQuestion = String.format(
+                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    uiState.value.fishList[uiState.value.currentFishId].common_name,
+                    uiState.value.fishList[uiState.value.currentFishId].avg_weight_kg
+                )
+            } else if (uiState.value.currentQuestionType == QuestionType.LENGTH) { // Works
+                formattedQuestion = String.format(
+                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    uiState.value.fishList[uiState.value.currentFishId].common_name,
+                    uiState.value.fishList[uiState.value.currentFishId].avg_len_met
+                )
+            } else if (uiState.value.currentQuestionType == QuestionType.DEPTH) {
+                formattedQuestion = String.format(
+                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    uiState.value.fishList[uiState.value.currentFishId].common_name,
+                    uiState.value.fishList[uiState.value.currentFishId].water_depth_met
+                )
+            }
+            _uiState.update { currentState ->
+                currentState.copy(
+                    currentQuestion = formattedQuestion
+                )
+            }
+            Log.d("Question text final", uiState.value.currentQuestion)
         }
     }
 

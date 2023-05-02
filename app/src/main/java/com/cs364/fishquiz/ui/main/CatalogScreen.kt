@@ -39,7 +39,6 @@ fun CatalogScreen(
     val currFish by vmData.getAllFishInHabitat(stringResource(habitatToDisplay)).collectAsState(initial = listOf())
     val emptyFishList: List<Fish> = listOf()
     val allFish by vmData.getAllFish().collectAsState(initial = emptyFishList)
-    Log.d("i'm done being nice", allFish.size)
 
     //order screen in a box to overlay the image with the fishlist
     Box {
