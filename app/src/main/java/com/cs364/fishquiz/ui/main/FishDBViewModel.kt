@@ -7,6 +7,12 @@ import com.cs364.fishquiz.ui.data.FishDatabase
 import com.cs364.fishquiz.ui.data.FishRepository
 import kotlinx.coroutines.flow.*
 
+/**
+ * Connects the database to the UI of the app. Functions are used to pull objects or lists
+ * as Flows.
+ *
+ * @param context the context used to create the database
+ */
 class FishDBViewModel(
     context: Context
 ): ViewModel() {

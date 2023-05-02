@@ -1,6 +1,5 @@
 package com.cs364.fishquiz.ui.main
 
-import androidx.annotation.StringRes
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -14,24 +13,31 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.cs364.fishquiz.R
 import com.cs364.fishquiz.ui.data.Fish
 
+/**
+ * Composable used to create the screens that display the fish catalogs.
+ *
+ * @param vmData viewModel that connects this UI composable to the database. Allows us to get data.
+ * @param habitatToDisplay String that tells us which habitat to display on this page.
+ * @param backgroundImageResource Int that tells us which image to display in the background
+ */
 @Composable
 fun CatalogScreen(
     vmData: FishDBViewModel,
-    habitatToDisplay: String,
+    habitatToDisplay: Int,
     backgroundImageResource: Int
 ) {
-    val currFish by vmData.getAllFishInHabitat(habitatToDisplay).collectAsState(initial = listOf())
+    //get every fish as a List<Fish>
+    val currFish by vmData.getAllFishInHabitat(stringResource(habitatToDisplay)).collectAsState(initial = listOf())
 
+    //order screen in a box to overlay the image with the fishlist
     Box {
         Image(
             painter = painterResource(id = backgroundImageResource),
@@ -41,6 +47,7 @@ fun CatalogScreen(
             contentScale = ContentScale.FillBounds
         )
         LazyColumn(
+            contentPadding = PaddingValues(bottom = 55.dp),
             modifier = Modifier.background(Color.Transparent)
         ) {
             items(currFish) { fish ->
@@ -50,6 +57,12 @@ fun CatalogScreen(
     }
 }
 
+/**
+ * Composable for a single card shown on the screen.
+ *
+ * @param fish data container for the data we are displaying on this card
+ * @param modifier modifiers applied to this composable
+ */
 @Composable
 fun FishCard(
     fish: Fish, modifier: Modifier = Modifier
@@ -59,14 +72,14 @@ fun FishCard(
     Card(
         elevation = 4.dp,
         modifier = modifier.padding(8.dp),
-        backgroundColor = Color.LightGray.copy(alpha = 0.8f)
+        backgroundColor = Color.LightGray.copy(alpha = 0.9f)
     ) {
         Column(
             modifier = Modifier
                 .animateContentSize(
                     animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessLow
+                        dampingRatio = Spring.DampingRatioLowBouncy,
+                        stiffness = Spring.StiffnessMedium
                     )
                 )
         ) {
@@ -74,46 +87,23 @@ fun FishCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-            ) {
-                FishInformation(fish = fish)
+            ) { //information displayed when the card is in either state (expanded)
+                FishTitle(fish = fish)
                 Spacer(Modifier.weight(1f))
                 ExpandIcon(
                     expanded = expanded,
                     onClick = { expanded = !expanded }
                 )
-
-                /*
-                DogIcon(dog.imageResourceId)
-                DogInformation(dog.name, dog.age)
-                Spacer(Modifier.weight(1f))
-                DogItemButton(
-                    expanded = expanded,
-                    onClick = { expanded = !expanded },
-                )
-                 */
             }
-            if (expanded) {
-                Column(
-                    modifier = modifier.padding(
-                        start = 16.dp,
-                        top = 8.dp,
-                        bottom = 16.dp,
-                        end = 16.dp
-                    )
-                ) {
-
-                    Text(
-                        text = fish.desc,
-                        style = MaterialTheme.typography.body1
-                    )
-                }
+            if (expanded) { //infromation to display when the card is expanded
+                FishExpanded(fish = fish)
             }
         }
     }
 }
 
 @Composable
-private fun ExpandIcon(
+fun ExpandIcon(
     expanded: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -128,7 +118,7 @@ private fun ExpandIcon(
 }
 
 @Composable
-fun FishInformation(fish: Fish, modifier: Modifier = Modifier) {
+fun FishTitle(fish: Fish, modifier: Modifier = Modifier) {
     Column {
         Text(
             text =  fish.common_name,
@@ -138,6 +128,28 @@ fun FishInformation(fish: Fish, modifier: Modifier = Modifier) {
         Text(
             text = fish.species,
             style = MaterialTheme.typography.body1
+        )
+    }
+}
+
+@Composable
+fun FishExpanded(fish: Fish, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.padding(
+            start = 16.dp,
+            top = 8.dp,
+            bottom = 16.dp,
+            end = 16.dp
+        )
+    ) {
+        Text(
+            text = fish.desc,
+            style = MaterialTheme.typography.body1
+        )
+        Spacer(Modifier.weight(1f))
+        Text(
+            text = "Average Weight: " + fish.avg_weight_kg + " ",
+            style = MaterialTheme.typography.body2
         )
     }
 }

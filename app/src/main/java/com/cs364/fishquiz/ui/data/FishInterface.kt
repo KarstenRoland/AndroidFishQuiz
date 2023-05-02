@@ -2,6 +2,9 @@ package com.cs364.fishquiz.ui.data
 
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Interface for the repo from the database.
+ */
 interface FishInterface {
     fun getAllFish(): Flow<List<Fish>>
 

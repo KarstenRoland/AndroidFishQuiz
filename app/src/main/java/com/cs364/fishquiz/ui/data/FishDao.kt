@@ -6,6 +6,9 @@ import androidx.room.Insert
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Queries used to get data from the fish database.
+ */
 @Dao
 interface FishDao {
     @Query("SELECT * FROM fish")

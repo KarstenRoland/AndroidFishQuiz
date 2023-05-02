@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.cs364.fishquiz.R
@@ -84,13 +85,13 @@ class PlaceholderFragment : Fragment() {
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
                 1 -> {
                     // ComposeView that displays image 1
-                    CatalogScreen(vmData = vmData, "Brackish", R.drawable.image1)
+                    CatalogScreen(vmData = vmData, R.string.tab_text_1, R.drawable.image1)
                 }
                 2 -> {
-                    CatalogScreen(vmData = vmData, "Fresh", R.drawable.image2)
+                    CatalogScreen(vmData = vmData, R.string.tab_text_2, R.drawable.image2)
                 }
                 3 -> {
-                    CatalogScreen(vmData = vmData, "Salty", R.drawable.image3)
+                    CatalogScreen(vmData = vmData, R.string.tab_text_3, R.drawable.image3)
                 }
                 else -> {
                     Column(modifier = Modifier.fillMaxSize()) {
