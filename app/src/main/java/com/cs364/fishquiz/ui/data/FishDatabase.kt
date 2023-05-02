@@ -14,16 +14,19 @@ abstract class FishDatabase : RoomDatabase() {
 
     //singleton
     companion object{
-        @Volatile
         private var instance: FishDatabase? = null
         fun getInstance(context: Context): FishDatabase{
-            return instance ?: synchronized(this) {
-                Room.databaseBuilder(context, FishDatabase::class.java, "fishy_db")
-                    .fallbackToDestructiveMigration()
-                    .createFromAsset("fish.db") //prepopulate the database
+            if (instance == null) {
+                instance = Room.databaseBuilder(
+                    context,
+                    FishDatabase::class.java,
+                    "fishy_db"
+                )
+                    .createFromAsset("fish.db")
                     .build()
-                    .also { instance = it }
             }
+
+            return instance as FishDatabase
         }
     }
 }
