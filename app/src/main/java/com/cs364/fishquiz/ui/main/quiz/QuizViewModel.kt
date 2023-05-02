@@ -91,6 +91,13 @@ class QuizViewModel(fishList: List<Fish>): ViewModel() {
             Log.d("Fish ID is now", uiState.value.currentFishId.toString())
             Log.d("Q? type is now", QuizQuestions.questions[newQuestionIndex].first.toString())
             Log.d("Q? template", QuizQuestions.questions[newQuestionIndex].second)
+            Log.d("Fish name", uiState.value.fishList[uiState.value.currentFishId].common_name)
+            Log.d("Fish genus", uiState.value.fishList[uiState.value.currentFishId].genus)
+            Log.d("Fish species", uiState.value.fishList[uiState.value.currentFishId].species)
+            Log.d("Fish weight", uiState.value.fishList[uiState.value.currentFishId].avg_weight_kg.toString())
+            Log.d("Fish length", uiState.value.fishList[uiState.value.currentFishId].avg_len_met.toString())
+            Log.d("Fish depth", uiState.value.fishList[uiState.value.currentFishId].water_depth_met.toString())
+
             if (uiState.value.currentQuestionType == QuestionType.SCIENTIFIC_NAME) {
                 formattedQuestion = String.format(
                     QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
@@ -108,19 +115,19 @@ class QuizViewModel(fishList: List<Fish>): ViewModel() {
                 formattedQuestion = String.format(
                     QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
-                    uiState.value.fishList[uiState.value.currentFishId].avg_weight_kg
+                    uiState.value.fishList[uiState.value.currentFishId].avg_weight_kg.toString()
                 )
             } else if (uiState.value.currentQuestionType == QuestionType.LENGTH) { // Works
                 formattedQuestion = String.format(
                     QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
-                    uiState.value.fishList[uiState.value.currentFishId].avg_len_met
+                    uiState.value.fishList[uiState.value.currentFishId].avg_len_met.toString()
                 )
             } else if (uiState.value.currentQuestionType == QuestionType.DEPTH) {
                 formattedQuestion = String.format(
                     QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
-                    uiState.value.fishList[uiState.value.currentFishId].water_depth_met
+                    uiState.value.fishList[uiState.value.currentFishId].water_depth_met.toString()
                 )
             }
             _uiState.update { currentState ->

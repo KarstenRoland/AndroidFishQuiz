@@ -13,11 +13,11 @@ enum class QuestionType {
 
 object QuizQuestions {
     val questions = listOf(
-        Pair(QuestionType.SCIENTIFIC_NAME, "The scientific name of the %s is %s %s."),
-        Pair(QuestionType.GENUS, "The genus of the %s is %s."),
-        Pair(QuestionType.WEIGHT, "The %s weighs %f kg."),
-        Pair(QuestionType.LENGTH, "The %s is %f meters in length."),
-        Pair(QuestionType.DEPTH, "The average depth of the %s is %f meters.")
+        Pair(QuestionType.SCIENTIFIC_NAME, "The scientific name of the %1\$s is %2\$s %3\$s."),
+        Pair(QuestionType.GENUS, "The genus of the %1\$s is %2\$s."),
+        Pair(QuestionType.WEIGHT, "The %1\$s weighs %2\$s kg."),
+        Pair(QuestionType.LENGTH, "The %1\$s is %2\$s meters in length."),
+        Pair(QuestionType.DEPTH, "The average depth of the %1\$s is %2\$s meters.")
         // Habitat type question
         // Habitat location question
         // Habitat
