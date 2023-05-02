@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.cs364.fishquiz.R
@@ -89,45 +90,13 @@ class PlaceholderFragment : Fragment() {
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
                 1 -> {
                     // ComposeView that displays image 1
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Image(
-                            painter = painterResource(id = R.drawable.image1),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, R.string.tab_text_1, R.drawable.image1)
                 }
                 2 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays image 2
-                        Image(
-                            painter = painterResource(id = R.drawable.image2),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, R.string.tab_text_2, R.drawable.image2)
                 }
                 3 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays image 3
-                        Image(
-                            painter = painterResource(id = R.drawable.image3),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, R.string.tab_text_3, R.drawable.image3)
                 }
                 4 -> {
                     QuizQuestionScreen(quizViewModel = QuizViewModel(fishList))
