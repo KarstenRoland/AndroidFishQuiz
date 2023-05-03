@@ -1,6 +1,7 @@
 package com.cs364.fishquiz.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +18,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.cs364.fishquiz.R
 import com.cs364.fishquiz.databinding.FragmentMainBinding
+import com.cs364.fishquiz.ui.data.Fish
+import com.cs364.fishquiz.ui.main.quiz.QuizQuestionScreen
+import com.cs364.fishquiz.ui.main.quiz.QuizViewModel
 
 /**
  * PlaceholderFragment is a Fragment that displays different content based on the section number
@@ -49,6 +54,7 @@ class PlaceholderFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         return ComposeView(requireContext()).apply {
             setContent {
                 // call your Composable function here
@@ -69,6 +75,9 @@ class PlaceholderFragment : Fragment() {
         var myContext = LocalContext.current
         var vmData: FishDBViewModel by remember { mutableStateOf(FishDBViewModel(myContext)) }
 
+        val fishList: List<Fish> by vmData.getAllFish().collectAsState(initial = listOf())
+        Log.d("fishList size", fishList.size.toString())
+        
         val imageView: ImageView = binding.backgroundImage
 
         // Set the background image to be used for all tabs
@@ -84,59 +93,16 @@ class PlaceholderFragment : Fragment() {
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
                 1 -> {
                     // ComposeView that displays image 1
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Image(
-                            painter = painterResource(id = R.drawable.image1),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, R.string.tab_text_1, R.drawable.image1)
                 }
                 2 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays image 2
-                        Image(
-                            painter = painterResource(id = R.drawable.image2),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, R.string.tab_text_2, R.drawable.image2)
                 }
                 3 -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays image 3
-                        Image(
-                            painter = painterResource(id = R.drawable.image3),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                    CatalogScreen(vmData = vmData, R.string.tab_text_3, R.drawable.image3)
                 }
-                else -> {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        // ComposeView that displays default image
-                        Image(
-                            painter = painterResource(id = R.drawable.default_image),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .height(160.dp),
-                            contentScale = ContentScale.FillWidth
-                        )
-                    }
+                4 -> {
+                    QuizQuestionScreen(quizViewModel = QuizViewModel(fishList))
                 }
             }
         }
