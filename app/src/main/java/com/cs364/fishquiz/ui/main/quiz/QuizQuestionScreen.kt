@@ -19,9 +19,7 @@ fun QuizQuestionScreen(
     quizViewModel: QuizViewModel,
     modifier: Modifier = Modifier
 ) {
-    //var selectedAnswer by rememberSaveable { mutableStateOf(Boolean) }
     val quizUiState by quizViewModel.uiState.collectAsState()
-    // quizViewModel = QuizViewModel(fishList) // move to placeholderfragment
 
     Column(modifier = modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Row(modifier = Modifier
@@ -35,20 +33,20 @@ fun QuizQuestionScreen(
         // Text(QuizQuestions.questions[questionIndex].second, fontSize = 24.sp, modifier = Modifier.padding(10.dp))
         Text(quizUiState.currentQuestion, fontSize = 24.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(10.dp))
         Button(onClick = {
-            quizViewModel.pickNewRandomQuestion()
-            quizViewModel.incrementQuestionCount()
             if(quizUiState.isCurrentQuestionTrue) {
                 quizViewModel.incrementScore()
             }
+            quizViewModel.incrementQuestionCount()
             onAnswerClicked(true)
+            quizViewModel.pickNewRandomQuestion()
         }){ Text("True") }
         Button(onClick = {
-            quizViewModel.pickNewRandomQuestion()
-            quizViewModel.incrementQuestionCount()
             if(!quizUiState.isCurrentQuestionTrue) {
                 quizViewModel.incrementScore()
             }
+            quizViewModel.incrementQuestionCount()
             onAnswerClicked(false)
+            quizViewModel.pickNewRandomQuestion()
         }){ Text("False") }
     }
 }

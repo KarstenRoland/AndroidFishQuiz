@@ -82,9 +82,6 @@ class QuizViewModel(fishList: List<Fish>): ViewModel() {
             Log.d("The question text", QuizQuestions.questions[newQuestionIndex].second)
             _uiState.update { currentState ->
                 currentState.copy(
-                    // Set question variables
-                    currentQuestionIndex = newQuestionIndex,
-                    currentQuestionType = QuizQuestions.questions[currentState.currentQuestionIndex].first,
                     currentFishId = newFishId
                 )
             }
@@ -98,34 +95,34 @@ class QuizViewModel(fishList: List<Fish>): ViewModel() {
             Log.d("Fish length", uiState.value.fishList[uiState.value.currentFishId].avg_len_met.toString())
             Log.d("Fish depth", uiState.value.fishList[uiState.value.currentFishId].water_depth_met.toString())
 
-            if (uiState.value.currentQuestionType == QuestionType.SCIENTIFIC_NAME) {
+            if (QuizQuestions.questions[newQuestionIndex].first == QuestionType.SCIENTIFIC_NAME) {
                 formattedQuestion = String.format(
-                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    QuizQuestions.questions[newQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
                     uiState.value.fishList[uiState.value.currentFishId].genus,
                     uiState.value.fishList[uiState.value.currentFishId].species
                 )
-            } else if (uiState.value.currentQuestionType == QuestionType.GENUS) {
+            } else if (QuizQuestions.questions[newQuestionIndex].first == QuestionType.GENUS) {
                 formattedQuestion = String.format(
-                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    QuizQuestions.questions[newQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
                     uiState.value.fishList[uiState.value.currentFishId].genus
                 )
-            } else if (uiState.value.currentQuestionType == QuestionType.WEIGHT) { // Problematic
+            } else if (QuizQuestions.questions[newQuestionIndex].first == QuestionType.WEIGHT) { // Problematic
                 formattedQuestion = String.format(
-                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    QuizQuestions.questions[newQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
                     uiState.value.fishList[uiState.value.currentFishId].avg_weight_kg.toString()
                 )
-            } else if (uiState.value.currentQuestionType == QuestionType.LENGTH) { // Works
+            } else if (QuizQuestions.questions[newQuestionIndex].first == QuestionType.LENGTH) { // Works
                 formattedQuestion = String.format(
-                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    QuizQuestions.questions[newQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
                     uiState.value.fishList[uiState.value.currentFishId].avg_len_met.toString()
                 )
-            } else if (uiState.value.currentQuestionType == QuestionType.DEPTH) {
+            } else if (QuizQuestions.questions[newQuestionIndex].first == QuestionType.DEPTH) {
                 formattedQuestion = String.format(
-                    QuizQuestions.questions[uiState.value.currentQuestionIndex].second,
+                    QuizQuestions.questions[newQuestionIndex].second,
                     uiState.value.fishList[uiState.value.currentFishId].common_name,
                     uiState.value.fishList[uiState.value.currentFishId].water_depth_met.toString()
                 )
