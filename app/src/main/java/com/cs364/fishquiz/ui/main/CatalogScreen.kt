@@ -1,5 +1,6 @@
 package com.cs364.fishquiz.ui.main
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -37,6 +38,8 @@ fun CatalogScreen(
 ) {
     //get every fish as a List<Fish>
     val currFish by vmData.getAllFishInHabitat(stringResource(habitatToDisplay)).collectAsState(initial = listOf())
+    val emptyFishList: List<Fish> = listOf()
+    val allFish by vmData.getAllFish().collectAsState(initial = emptyFishList)
 
     //order screen in a box to overlay the image with the fishlist
     Box {
