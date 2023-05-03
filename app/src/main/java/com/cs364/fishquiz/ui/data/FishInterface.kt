@@ -18,4 +18,6 @@ interface FishInterface {
 
     fun getAllFishInHabitat(habitat: String): Flow<List<Fish>>
 
+    fun getHabitatFromId(id: Int): Flow<Habitat>
+
 }
