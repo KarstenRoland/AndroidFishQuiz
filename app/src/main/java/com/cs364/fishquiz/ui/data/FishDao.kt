@@ -30,4 +30,7 @@ interface FishDao {
             "JOIN Habitat H ON F.hab_id = H.habitat_id " +
             "WHERE H.water_type = :habitat")
     fun getAllFishInHabitat(habitat: String): Flow<List<Fish>>
+
+    @Query("SELECT * FROM Habitat WHERE habitat_id = :id")
+    fun getHabitatFromId(id: Int) :Flow<Habitat>
 }

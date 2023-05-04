@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cs364.fishquiz.ui.data.Fish
+import com.cs364.fishquiz.ui.data.Habitat
 
 /**
  * Composable used to create the screens that display the fish catalogs.
@@ -54,7 +55,8 @@ fun CatalogScreen(
             modifier = Modifier.background(Color.Transparent)
         ) {
             items(currFish) { fish ->
-                FishCard(fish)
+                val fishHab by vmData.getHabitatFromId(fish.hab_id).collectAsState(initial = null)
+                FishCard(fish, fishHab)
             }
         }
     }
@@ -64,11 +66,14 @@ fun CatalogScreen(
  * Composable for a single card shown on the screen.
  *
  * @param fish data container for the data we are displaying on this card
+ * @param habitat the Habitat that the fish lives in
  * @param modifier modifiers applied to this composable
  */
 @Composable
 fun FishCard(
-    fish: Fish, modifier: Modifier = Modifier
+    fish: Fish,
+    habitat: Habitat?,
+    modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -77,6 +82,7 @@ fun FishCard(
         modifier = modifier.padding(8.dp),
         backgroundColor = Color.LightGray.copy(alpha = 0.9f)
     ) {
+        //ordered in a column
         Column(
             modifier = Modifier
                 .animateContentSize(
@@ -98,13 +104,20 @@ fun FishCard(
                     onClick = { expanded = !expanded }
                 )
             }
-            if (expanded) { //infromation to display when the card is expanded
-                FishExpanded(fish = fish)
+            if (expanded) { //information to display when the card is expanded
+                FishExpanded(fish = fish, habitat)
             }
         }
     }
 }
 
+/**
+ * Composable for the expanding icon on the rightside of the card
+ *
+ * @param expanded Boolean showing what state the card is in. True if exanded, false otherwise
+ * @param onClick Lambda function for what happens when this icon is clicked
+ * @param modifier any Modifiers we want to apply to this composable
+ */
 @Composable
 fun ExpandIcon(
     expanded: Boolean,
@@ -120,23 +133,43 @@ fun ExpandIcon(
     }
 }
 
+/**
+ * Composable used to display information about a fish when the card is expanded and not expanded
+ *
+ * @param fish the Fish we're displaying information about
+ * @param modifier any Modifiers we want to apply to this composable
+ */
 @Composable
-fun FishTitle(fish: Fish, modifier: Modifier = Modifier) {
+fun FishTitle(
+    fish: Fish,
+    modifier: Modifier = Modifier
+) {
     Column {
-        Text(
+        Text(   //name
             text =  fish.common_name,
             style = MaterialTheme.typography.h5,
             modifier = modifier.padding(top = 8.dp)
         )
-        Text(
+        Text(   //scientific name
             text = fish.species,
             style = MaterialTheme.typography.body1
         )
     }
 }
 
+/**
+ * Composable used to display infomation about the fish when the card is expanded
+ *
+ * @param fish the Fish we're displaying information about
+ * @param habitat the habitat that the fish lives in
+ * @param modifier and Modifiers we want to apply to this composable
+ */
 @Composable
-fun FishExpanded(fish: Fish, modifier: Modifier = Modifier) {
+fun FishExpanded(
+    fish: Fish,
+    habitat: Habitat?,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.padding(
             start = 16.dp,
@@ -145,14 +178,31 @@ fun FishExpanded(fish: Fish, modifier: Modifier = Modifier) {
             end = 16.dp
         )
     ) {
+        //display the description
+        Divider()
         Text(
             text = fish.desc,
             style = MaterialTheme.typography.body1
         )
         Spacer(Modifier.weight(1f))
+        Divider()
+        //display the specifics
         Text(
-            text = "Average Weight: " + fish.avg_weight_kg + " ",
+            text = "Average Weight: " + fish.avg_weight_kg + " kg",
             style = MaterialTheme.typography.body2
         )
+        Text(
+            text = "Average Length: " + fish.avg_len_met + " m",
+            style = MaterialTheme.typography.body2
+        )
+        Text(
+            text = "Water Depth: " + fish.water_depth_met + "m",
+            style = MaterialTheme.typography.body2
+        )
+        Text(
+            text = "Habitat: " + habitat?.name,
+            style = MaterialTheme.typography.body2
+        )
+        Divider()
     }
 }

@@ -30,9 +30,9 @@ data class Fish(
     @ColumnInfo(name = "genus")
     val genus: String,
     @ColumnInfo(name = "avg_weight_kg")
-    val avg_weight_kg: Int,
+    val avg_weight_kg: Double,
     @ColumnInfo(name = "avg_len_met")
-    val avg_len_met: Int,
+    val avg_len_met: Double,
     @ColumnInfo(name = "water_depth_met")
     val water_depth_met: Int,
     @ColumnInfo(name = "desc")

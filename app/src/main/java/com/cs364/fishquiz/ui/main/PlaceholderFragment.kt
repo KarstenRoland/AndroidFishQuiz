@@ -92,7 +92,6 @@ class PlaceholderFragment : Fragment() {
             // Set the text to display on the textView based on the tab number
             when(arguments?.getInt(ARG_SECTION_NUMBER)) {
                 1 -> {
-                    // ComposeView that displays image 1
                     CatalogScreen(vmData = vmData, R.string.tab_text_1, R.drawable.image1)
                 }
                 2 -> {

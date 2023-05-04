@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.cs364.fishquiz.ui.data.Fish
 import com.cs364.fishquiz.ui.data.FishDatabase
 import com.cs364.fishquiz.ui.data.FishRepository
+import com.cs364.fishquiz.ui.data.Habitat
 import kotlinx.coroutines.flow.*
 
 /**
@@ -33,5 +34,9 @@ class FishDBViewModel(
 
     fun getAllFishInHabitat(hab: String): Flow<List<Fish>> {
         return fishRepository.getAllFishInHabitat(hab)
+    }
+
+    fun getHabitatFromId(id: Int): Flow<Habitat> {
+        return fishRepository.getHabitatFromId(id)
     }
 }

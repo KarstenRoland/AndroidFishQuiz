@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 /**
  * Database singleton used for our Room database. Imports data from the assets/fish.dp file.
  */
-@Database(entities = [Fish::class, FishFact::class, Habitat::class], version = 4, exportSchema = false)
+@Database(entities = [Fish::class, FishFact::class, Habitat::class], version = 5, exportSchema = false)
 abstract class FishDatabase : RoomDatabase() {
     abstract fun fishDao() : FishDao
 
@@ -22,7 +22,7 @@ abstract class FishDatabase : RoomDatabase() {
                     FishDatabase::class.java,
                     "fishy_db"
                 )
-                    .createFromAsset("fish.db")
+                    .createFromAsset("fish.db") //load database from asset
                     .build()
             }
 
