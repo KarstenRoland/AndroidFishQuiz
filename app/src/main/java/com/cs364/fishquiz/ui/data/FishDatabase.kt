@@ -22,7 +22,7 @@ abstract class FishDatabase : RoomDatabase() {
                     FishDatabase::class.java,
                     "fishy_db"
                 )
-                    .createFromAsset("fish.db")
+                    .createFromAsset("fish.db") //load database from asset
                     .build()
             }
 
