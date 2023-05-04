@@ -20,12 +20,14 @@ class PageViewModelTest {
         viewModel = PageViewModel()
     }
 
+    //tests that viewModel exists at index 0
     @Test
     fun index0test() {
         viewModel.setIndex(0)
         assertEquals(null, viewModel.text.value)
     }
 
+    //tests that viewModel exists at index 1
     @Test
     fun index1test() {
         viewModel.setIndex(1)
